@@ -1,0 +1,20 @@
+{% extends 'users/base.html' %}
+{% block title %}Login{% endblock %}
+{% block content %}
+<div class="col-12 mt-3">
+    <form class="row" method="post" enctype="multipart/form-data">
+        <div class="col-3"></div>
+        <div class="col-6">
+            <div class="card">
+                <h3 class="card-header">Вход</h3>
+                <div class="card-body">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" class="btn btn-success">Войти</button>
+                    <a href="{% url 'users:profile' %}" class="p-2 btn btn-primary">На главную</a>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}
