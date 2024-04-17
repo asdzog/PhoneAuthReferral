@@ -11,7 +11,7 @@ class Code(models.Model):
     invite_code = models.CharField(verbose_name='Инвайт-код', max_length=6, blank=True, null=True)
 
     def __str__(self):
-        return str(self.verify)
+        return f'{self.user}: {self.verify_code}'
 
     def save(self, *args, **kwargs):
         self.verify_code = ''.join(random.choices(string.digits, k=4))
