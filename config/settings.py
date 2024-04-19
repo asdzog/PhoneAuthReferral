@@ -44,6 +44,8 @@ INSTALLED_APPS = [
     'django_filters',
     'phonenumber_field',
     'rest_framework_simplejwt',
+    'corsheaders',
+    'drf_yasg',
 
     'users',
     'api',
@@ -57,6 +59,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -153,3 +157,8 @@ SIMPLE_JWT = {
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
 }
 
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:8000',  # Замените на адрес вашего фронтенд-сервера
+]
+
+CORS_ALLOW_ALL_ORIGINS = False
