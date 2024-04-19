@@ -42,6 +42,8 @@ INSTALLED_APPS = [
 
     'rest_framework',
     'django_filters',
+    'phonenumber_field',
+    'rest_framework_simplejwt',
 
     'users',
     'api',
@@ -141,6 +143,9 @@ REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': (
         'django_filters.rest_framework.DjangoFilterBackend',
     ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    )
 }
 
 SIMPLE_JWT = {
