@@ -16,6 +16,7 @@ class User(AbstractUser):
     is_active = models.BooleanField(default=True, verbose_name='активен')
     confirmation_code = models.CharField(max_length=4, verbose_name='код подтверждения')
     invite_code = models.CharField(max_length=6, unique=True, verbose_name='инвайт-код')
+    referrer = models.CharField(max_length=6, **NULLABLE, verbose_name='пригласивший пользователь')
 
     objects = CustomUserManager()
 
@@ -34,16 +35,3 @@ class User(AbstractUser):
         verbose_name = 'пользователь'
         verbose_name_plural = 'пользователи'
 
-
-class Referral(models.Model):
-    inviter = models.ForeignKey(User, verbose_name='Пригласивший пользователь',
-                                related_name='inviter', on_delete=models.CASCADE)
-    referral = models.ForeignKey(User, verbose_name='Приглашенный пользователь',
-                                 related_name='invited_user', on_delete=models.CASCADE)
-
-    def __str__(self):
-        return f'{self.invited_user.phone_number} приглашен пользователем {self.inviter.phone_number}'
-
-    class Meta:
-        verbose_name = 'Приглашенный пользователь'
-        verbose_name_plural = 'Приглашенные пользователи'
