@@ -42,7 +42,16 @@ class AuthAPIView(APIView):
         serializer = SendCodeSerializer(data=request.data)
         if serializer.is_valid():
             phone_number = serializer.validated_data['phone_number']
-            user, created = User.objects.get_or_create(phone_number=phone_number)
+
+            # получаем приглашенный код, если он передается в запросе
+            invite_code = request.data.get('invite_code')
+
+            # Попытка найти пользователя по номеру телефона
+            try:
+                user = User.objects.get(phone_number=phone_number)
+            except User.DoesNotExist:
+                # Если пользователя не существует, создаем нового
+                user = User.objects.create_user(phone_number=phone_number, invite_code=invite_code)
 
             # генерируем новый код подтверждения
             user.confirmation_code = generate_confirmation_code()
