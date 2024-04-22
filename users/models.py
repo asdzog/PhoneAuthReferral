@@ -28,7 +28,8 @@ class User(AbstractUser):
 
     def save(self, *args, **kwargs):
         self.verification_code = generate_confirmation_code()
-        self.invite_code = generate_invite_code()
+        if not self.pk:  # Проверяем, что объект новый
+            self.invite_code = generate_invite_code()
         super().save(*args, **kwargs)
 
     class Meta:
