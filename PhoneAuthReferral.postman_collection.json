@@ -105,6 +105,46 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "update-referrer",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzEzNzkzMjk5LCJpYXQiOjE3MTM3ODk2OTksImp0aSI6ImRkNmVlZmRhMTdiYTQyNmRiNjNkNDczZjk3ZGI1OTUxIiwidXNlcl9pZCI6MX0.O9i123K1Jz5CtZE-vqSgX14Tgx6C66AtA3wnZ79_EOc",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"invite_code\": \"ASNLLK\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/update-referrer/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"update-referrer",
+						""
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
