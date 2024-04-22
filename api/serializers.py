@@ -20,6 +20,7 @@ class ProfileViewSerializer(serializers.ModelSerializer):
 
 
 class ProfileUpdateSerializer(serializers.ModelSerializer):
+    invite_code = serializers.CharField(max_length=6)
 
     class Meta:
         model = User
