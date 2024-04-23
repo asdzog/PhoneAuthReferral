@@ -183,11 +183,14 @@ class ReferrerUpdateAPIView(APIView):
         serializer = ProfileUpdateSerializer(request.user, data=request.data)
         if serializer.is_valid():
             invite_code = serializer.validated_data.get('invite_code')
-            try:
-                inviter = User.objects.get(invite_code=invite_code)
-                request.user.referrer = inviter.invite_code
-                request.user.save()
-                return Response({'detail': 'Поле "referrer" успешно обновлено'}, status=status.HTTP_200_OK)
-            except User.DoesNotExist:
-                return Response({'error': 'Инвайт-код не существует'}, status=status.HTTP_400_BAD_REQUEST)
+            if not request.user.referrer:  # Проверка, что поле referrer пустое
+                try:
+                    inviter = User.objects.get(invite_code=invite_code)
+                    request.user.referrer = inviter.invite_code
+                    request.user.save()
+                    return Response({'detail': 'Поле "referrer" успешно обновлено'}, status=status.HTTP_200_OK)
+                except User.DoesNotExist:
+                    return Response({'error': 'Инвайт-код не существует'}, status=status.HTTP_400_BAD_REQUEST)
+            else:
+                return Response({'error': 'Поле "referrer" уже заполнено'}, status=status.HTTP_400_BAD_REQUEST)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
